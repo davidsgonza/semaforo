@@ -1,2 +1,3 @@
 # semaforo
-Semaforo de control digital
+## Secuencia de semáforo
+Secuencia de semáforo haciendo uso de máquinas de estado
