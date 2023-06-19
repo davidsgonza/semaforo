@@ -4,31 +4,29 @@
 # include "reloj.h"
 
 extern int fsmButtonState;
-extern int16_t LED_GREEN;
-extern int16_t LED_YELLOW;
+
 extern int16_t SW1;
 extern int16_t SW2;
 extern int tecla;
 extern int16_t t_delay;
-
+int16_t presionado;
 void fsmButtonIni(void){
 fsmButtonState = BUTTON_UP;
 }
 
 
-void fsmButtonUpdate(int16_t t_delay,int16_t tecla,int16_t fsmButtonState){
-    
-  
-  buttonPressed(tecla); 
-  buttonReleased(tecla);
-
+int fsmButtonUpdate(int16_t t_delay,int16_t tecla,int16_t fsmButtonState){
+      
+  presionado = buttonPressed(tecla); 
+  presionado = buttonReleased(tecla);
+  return presionado;
 }
 
 
 
 
 
-void buttonPressed(int16_t tecla){
+int buttonPressed(int16_t tecla){
 switch (fsmButtonState)
 {
 case BUTTON_DOWN:
@@ -42,7 +40,7 @@ case BUTTON_DOWN:
    {
     if (!digitalRead(tecla)){
       fsmButtonState = BUTTON_DOWN;
-      PruebabuttonPressed(tecla);
+      return 1;
     }else{
       fsmButtonState = BUTTON_UP;
       
@@ -57,7 +55,7 @@ default:
 }
 
 
-void buttonReleased(int16_t tecla){
+int buttonReleased(int16_t tecla){
 switch (fsmButtonState)
   {
   case BUTTON_UP:
@@ -71,7 +69,7 @@ switch (fsmButtonState)
    {
     if (digitalRead(tecla)){
       fsmButtonState = BUTTON_UP;
-      PruebabuttonNoPressed(tecla);
+      return 0;
     }else{
       fsmButtonState = BUTTON_DOWN;
       
@@ -85,13 +83,3 @@ switch (fsmButtonState)
 }
 
 
-void PruebabuttonPressed(int16_t tecla){
-  digitalWrite(LED_GREEN, HIGH);
-  digitalWrite(LED_YELLOW, LOW);
- 
-}
-
-void PruebabuttonNoPressed(int16_t tecla){
-  digitalWrite(LED_GREEN, LOW);
-  digitalWrite(LED_YELLOW, HIGH);
-}

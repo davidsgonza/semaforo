@@ -18,10 +18,10 @@ enum tecla{t1, t2};
 //void fsmButtonUpdate(void);
 
 
-void fsmButtonUpdate(int16_t t_delay, int16_t tecla, int16_t fsmButtonState);
+int fsmButtonUpdate(int16_t t_delay, int16_t tecla, int16_t fsmButtonState);
 void fsmButtonIni(void);
-void buttonPressed(int16_t tecla);
-void buttonReleased(int16_t tecla);
+int buttonPressed(int16_t tecla);
+int buttonReleased(int16_t tecla);
 void PruebabuttonPressed(int16_t tecla);
 void PruebabuttonNoPressed(int16_t tecla);
 
