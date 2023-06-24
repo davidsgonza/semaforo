@@ -17,4 +17,5 @@ Se hace uso de una máquina de estados para controlar el antirebote de los pulsa
   - teclas.h
   - semaforo.cpp
   - semaforo.h
-- Dentro del main.cpp se ha generado una prueba para el semáforo, llamando las funciones para que lea el pulsante como también para que funcione el semáforo. 
+- Dentro del main.cpp se ha generado una prueba para el semáforo, llamando las funciones para que lea el pulsante como también para que funcione el semáforo.
+- Se encuentra también el circuito que se usó, que se puede apreciar en Esquema_Semaforo.png.
