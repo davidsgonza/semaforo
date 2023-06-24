@@ -2,7 +2,8 @@
 #include "semaforo.h"
 unsigned long tespera = 0;
 
-
+bool banderaOPCIONAL = true;
+bool banderaROJO = true;
 //variable que recibe 
 //extern int16_t veces = 0;
 // VARIABLES PARA ESTADO DE LED
@@ -16,7 +17,7 @@ semaforoMODOS modoPASADO = ALARMA;
 
 
 //FUNCION PRINCIPAL
-void modosSEMAFORO(int16_t veces, int16_t pinArduino[], int16_t tiempo_Exe){
+void modosSEMAFORO(int16_t veces, int16_t pinArduino[], unsigned long tiempo_Exe){
 
     switch (modoACTUAL)
     {
@@ -34,11 +35,15 @@ void modosSEMAFORO(int16_t veces, int16_t pinArduino[], int16_t tiempo_Exe){
         break;
     case DESCONECTADO:      //EL MODO DESCONECADO EL LED AMARILLO PARPADEA CADA 500 milisegundos
         if ((veces == 2) && (modoPASADO == NORMAL)){
-            //controlLED(pinArduino[2], HIGH)
-            if(relojNO(500*tiempo_Exe)){
-                controlLED(pinArduino[1], LOW);
-            }else{
+            //Serial.println("Ingresa");
+            if(relojNO(500*tiempo_Exe) && (banderaOPCIONAL)){
+                Serial.println("Enciende");
                 controlLED(pinArduino[1], HIGH);
+                banderaOPCIONAL = false;
+            }else if(relojNO(500*tiempo_Exe) && (!banderaOPCIONAL)){
+                Serial.println("Apaga");
+                controlLED(pinArduino[1], LOW);
+                banderaOPCIONAL = true;
             }
             //funcionar solo led amarillo
         }else if((veces == 3) && (modoPASADO == NORMAL)){
@@ -52,10 +57,12 @@ void modosSEMAFORO(int16_t veces, int16_t pinArduino[], int16_t tiempo_Exe){
     
     case ALARMA:        //EL MODO ALARMA ENCIENDE EL LED ROJO PARPADEA CADA SEGUNDO
         if ((veces == 3) && (modoPASADO == DESCONECTADO)){
-            if(relojNO(1000*tiempo_Exe)){
-                controlLED(pinArduino[2], LOW);
-            }else{
+            if(relojNO(1000*tiempo_Exe) && (banderaROJO)){
                 controlLED(pinArduino[2], HIGH);
+                banderaROJO = false;
+            }else if(relojNO(1000*tiempo_Exe) && (!banderaROJO)){
+                controlLED(pinArduino[2], LOW);
+                banderaROJO = true;
             }
         }else if((veces == 1) && (modoPASADO == DESCONECTADO)){
             modoPASADO = modoACTUAL;
@@ -69,6 +76,8 @@ void modosSEMAFORO(int16_t veces, int16_t pinArduino[], int16_t tiempo_Exe){
     default:
         modoPASADO = ALARMA;
         modoACTUAL = NORMAL;
+        banderaOPCIONAL = true;
+        banderaROJO = true;
         break;
     }
 
@@ -91,7 +100,7 @@ void actualizarSemaforo(int16_t pinArduino[], int tiempo_Exe)
         break;
     case AMARILLO:
         
-        if ((relojNO(500*tiempo_Exe)) && (ledPASADO == VERDE)){
+        if ((relojNO(2000*tiempo_Exe)) && (ledPASADO == VERDE)){
             controlLED(pinArduino[0], HIGH);
             controlLED(pinArduino[1], HIGH);
             controlLED(pinArduino[2], LOW);
@@ -100,7 +109,7 @@ void actualizarSemaforo(int16_t pinArduino[], int tiempo_Exe)
         }
         break;
     case ROJO:
-        if ((relojNO(2000*tiempo_Exe)) && (ledPASADO == AMARILLO)){
+        if ((relojNO(500*tiempo_Exe)) && (ledPASADO == AMARILLO)){
             controlLED(pinArduino[0], LOW);
             controlLED(pinArduino[1], LOW);
             controlLED(pinArduino[2], HIGH);
@@ -131,13 +140,16 @@ void controlLED (int16_t pinArduino, int16_t estado){
 /************ FIN FUNCION DE CONTROL LEDS ********************/
 
 /************ FUNCION DE DELAY NO BLOQUEANTE *****************/
-bool relojNO (unsigned valor_tiempo){
-    static unsigned long tdespues;
-    if ((millis() - tdespues) >= valor_tiempo){
-        tdespues = millis();
-        return true;
-    }else{
-        return false;
-    }
+bool relojNO(unsigned long valor_tiempo) {
+  static unsigned long tdespues;
+
+  if ((millis() - tdespues) >= valor_tiempo) {
+    tdespues = millis();
+    return true;
+  }else{
+    return false;
+  }
+  
 }
+
 /************ FIN FUNCION DE DELAY NO BLOQUEANTE *****************/
