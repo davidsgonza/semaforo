@@ -8,6 +8,7 @@ Se hace uso de una máquina de estados para controlar el antirebote de los pulsa
   - teclas.h
   - semaforo.cpp
   - semaforo.h
+## SemaforoD Descripción
 
 ## PdM Descripción
 - En la carpeta PdM se encuentra la versión generada por Luis, que ocupa un arduino nano, (para que se tenga en consideración). 
