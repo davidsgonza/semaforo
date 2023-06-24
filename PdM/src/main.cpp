@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "teclas.h"
 #include "semaforo.h"
-
+#include "uart.h"
 /******************Declaración Pines a usar**************/
 // Pines PULSANTES
     int16_t SW1 = 6;
@@ -34,6 +34,7 @@ void setup() {
     Serial.begin(9600);
     for (int16_t i=0; i<len_leds;i++) pinMode(Vled[i],OUTPUT);
     for (int16_t i=0; i<len_button;i++) pinMode(Vbotones[i],INPUT);
+    uart_init();
 }
 /**********************FIN DEL SETUP***********************/
 
