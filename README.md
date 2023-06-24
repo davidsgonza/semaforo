@@ -1,14 +1,19 @@
-# semaforo
+# Semáforo 
 ## Secuencia de semáforo
 Secuencia de semáforo haciendo uso de máquinas de estado
 
-Se hace uso de una máquina de estaba para controlar el rebote
+Se hace uso de una máquina de estados para controlar el antirebote de los pulsantes.
+- El programa cuenta con su respectiva modularización, es decir, los archivos
+- - teclas.cpp
+  - teclas.h
+  - semaforo.cpp
+  - semaforo.h
 
 ## PdM Descripción
-- En la carpeta PdM se encuentra la versión generada por Luis
+- En la carpeta PdM se encuentra la versión generada por Luis, que ocupa un arduino nano, (para que se tenga en consideración). 
 - Aquí se encuentra implementada una versión de
 - - teclas.cpp
   - teclas.h
   - semaforo.cpp
   - semaforo.h
-- Dentro del main.cpp se ha generado una prueba para el semáforo. Este primer intento no tiene buenos resultados, el problema surge al llamar a la función de antirebote y querer controlar el semáforo a la par.
+- Dentro del main.cpp se ha generado una prueba para el semáforo, llamando las funciones para que lea el pulsante como también para que funcione el semáforo. 
