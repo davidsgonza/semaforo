@@ -1,4 +1,0 @@
-# Intento Luis
-- La implementación se realizó en Visual Studio Code, con la extensión de Plataform IO para poder controlar un arduino
-- El arduino utilizado es un nano.
-- En el archivo se implementó los archivos, tecla.h, tecla.cpp, semaforo.h y semaforo.cpp, todos han sido incluídos en el main.cpp. Sin embargo no corren
