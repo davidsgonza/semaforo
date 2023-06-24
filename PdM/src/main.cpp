@@ -20,11 +20,12 @@ int16_t len_button = sizeof(Vbotones)/sizeof(int16_t);
 /*****************************************************/
 /******************ZONA DE VARIABLES******************/
 
-int16_t contadorPulsos = 0;
-int16_t tiempoEJEC = 1;
+int16_t contadorPulsos = 1;
+unsigned long tiempoEJEC = 1;
 int16_t veces = 1;
 int16_t veces2 = 1;
 bool bandera = true;
+bool banderaSW2 = true;
 /**************************************************/
 
 
@@ -46,11 +47,16 @@ void loop() {
         bandera = false;
     }else if ((!updateMEF(SW1)) && (!bandera)){
         veces = veces+1;
+        Serial.print("Contador: ");
         bandera = true;
         if (veces == 4) veces = 1;
+        Serial.println(veces);
     }
-    if (updateMEF(SW2)){
-        if (veces2 == 1){
+
+    /*if (updateMEF(SW2) && (banderaSW2)){
+        Serial.println(veces2);
+        banderaSW2 = false;
+       /*if (veces2 == 1){
             tiempoEJEC = 2;               // velocidad de x0,5
             
         }else if(veces2 == 2){
@@ -59,8 +65,21 @@ void loop() {
             tiempoEJEC = 0.5;               // veclodiad x2
             veces2 = 0;
         }
+        veces2 = veces2 + 1;*/
+
+
+    /*}else if((!updateMEF(SW2)) && (!banderaSW2)){
         veces2 = veces2 + 1;
-    }   
+        if(veces2 == 1){
+            tiempoEJEC = 1;
+        }else if(veces2 == 2){
+            tiempoEJEC = 0.5;
+        }else if(veces2 == 3){
+            tiempoEJEC = 2;
+        }else if(veces2 == 4) veces2 = 1;
+        veces2 = veces2 + 1;
+        banderaSW2 = true;
+    }*/
     
     modosSEMAFORO(veces, Vled, tiempoEJEC);
 
