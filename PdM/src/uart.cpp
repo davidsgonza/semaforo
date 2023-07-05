@@ -2,7 +2,7 @@
 #include "uart.h"
 
 #define UART_BAUDRATE 9600
-#define UART_SERIAL Serial1  
+#define UART_SERIAL Serial  
 
 void uart_init() {
   UART_SERIAL.begin(UART_BAUDRATE);
